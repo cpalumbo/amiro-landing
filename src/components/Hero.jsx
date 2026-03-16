@@ -12,9 +12,9 @@ export default function Hero() {
           </div>
 
           <h1 className="text-[46px] font-extrabold leading-[1.1] tracking-tight mb-5">
-            Your AI employee for{' '}
+            Scale revenue by automating{' '}
             <span className="bg-gradient-to-br from-purple to-[#A78BFA] bg-clip-text text-transparent">
-              patient journeys
+              patient journeys with AI
             </span>
           </h1>
 
@@ -25,11 +25,11 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3">
-            <a href="#contact" className="btn-primary btn-large">
-              Book a Demo
+            <a href="#demo" className="btn-primary btn-large">
+              Try Your Demo
             </a>
-            <a href="#features" className="btn-ghost">
-              See how it works →
+            <a href="#contact" className="btn-outline btn-large">
+              Talk to Sales
             </a>
           </div>
         </div>

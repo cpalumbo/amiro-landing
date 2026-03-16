@@ -1,71 +1,63 @@
-import { useState } from 'react'
-
 export default function ContactCta() {
-  const [submitted, setSubmitted] = useState(false)
-
-  function handleSubmit(e) {
-    e.preventDefault()
-    setSubmitted(true)
-  }
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+  const hours = ['9:00', '10:00', '11:00', '14:00', '15:00', '16:00']
 
   return (
     <section id="contact" className="py-24 bg-[#1A1A2E] text-white">
       <div className="max-w-content mx-auto px-6 flex flex-col items-center text-center">
         <h2 className="text-4xl font-extrabold tracking-tight leading-[1.15] mb-3">
-          Ready to stop losing patients?
+          Ready to grow your revenue?
         </h2>
         <p className="text-[17px] text-white/60 leading-relaxed max-w-[480px] mb-10">
-          Book a demo and see what Amiro looks like for your clinic. We'll show you
-          real workflows running on real data — in under 20 minutes.
+          Pick a time that works for you — we'll show you real workflows
+          running on real data in under 20 minutes.
         </p>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-3.5 w-full max-w-[420px]"
-        >
-          <input
-            type="text"
-            name="name"
-            placeholder="Your name"
-            required
-            className="w-full px-[18px] py-3.5 rounded-[10px] border border-white/15 bg-white/[0.08] text-white text-sm placeholder-white/40 outline-none focus:border-purple transition-colors"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Work email"
-            required
-            className="w-full px-[18px] py-3.5 rounded-[10px] border border-white/15 bg-white/[0.08] text-white text-sm placeholder-white/40 outline-none focus:border-purple transition-colors"
-          />
-          <input
-            type="text"
-            name="clinic"
-            placeholder="Clinic name"
-            className="w-full px-[18px] py-3.5 rounded-[10px] border border-white/15 bg-white/[0.08] text-white text-sm placeholder-white/40 outline-none focus:border-purple transition-colors"
-          />
-          <textarea
-            name="message"
-            placeholder="Tell us about your clinic (optional)"
-            rows={3}
-            className="w-full px-[18px] py-3.5 rounded-[10px] border border-white/15 bg-white/[0.08] text-white text-sm placeholder-white/40 outline-none focus:border-purple transition-colors resize-y"
-          />
+        {/* Calendar placeholder — replace with Cal.com embed */}
+        <div className="w-full max-w-[700px] rounded-xl border border-white/10 bg-white/[0.05] overflow-hidden">
+          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+            <span className="text-sm font-semibold">Book a meeting</span>
+            <span className="text-xs text-white/40">March 2026</span>
+          </div>
 
-          <button
-            type="submit"
-            disabled={submitted}
-            className={`w-full py-3.5 rounded-[10px] font-semibold text-[15px] transition-all ${
-              submitted
-                ? 'bg-green text-white cursor-default'
-                : 'bg-purple text-white hover:bg-purple-dark hover:-translate-y-px hover:shadow-md'
-            }`}
-          >
-            {submitted ? "Thank you! We'll be in touch." : 'Book a Demo'}
-          </button>
+          <div className="p-6">
+            <div className="grid grid-cols-5 gap-3 mb-4">
+              {days.map((day) => (
+                <div key={day} className="text-center">
+                  <span className="text-xs text-white/40 font-medium">{day}</span>
+                </div>
+              ))}
+            </div>
 
-          <span className="text-xs text-white/40">
-            We'll respond within 24 hours. No spam, ever.
-          </span>
-        </form>
+            <div className="grid grid-cols-5 gap-3 mb-6">
+              {days.map((_, i) => (
+                <div
+                  key={i}
+                  className="text-center py-2.5 rounded-lg bg-white/[0.06] border border-white/10 text-sm font-medium text-white/60"
+                >
+                  {16 + i}
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+              {hours.map((hour) => (
+                <div
+                  key={hour}
+                  className="py-2 rounded-lg border border-purple/40 bg-purple/10 text-xs font-medium text-purple-light text-center"
+                >
+                  {hour}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="px-6 py-4 border-t border-white/10 text-center">
+            <span className="text-xs text-white/30">
+              Cal.com embed will replace this placeholder
+            </span>
+          </div>
+        </div>
       </div>
     </section>
   )

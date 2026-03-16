@@ -4,6 +4,7 @@ import LogosBar from './components/LogosBar'
 import Features from './components/Features'
 import Testimonial from './components/Testimonial'
 import Pricing from './components/Pricing'
+import DemoForm from './components/DemoForm'
 import ContactCta from './components/ContactCta'
 import Footer from './components/Footer'
 
@@ -15,6 +16,7 @@ export default function App() {
       <LogosBar />
       <Features />
       <Testimonial />
+      <DemoForm />
       <Pricing />
       <ContactCta />
       <Footer />

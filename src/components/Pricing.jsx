@@ -42,9 +42,14 @@ export default function Pricing() {
               ))}
             </ul>
 
-            <a href="#contact" className="btn-primary w-full">
-              Book a Demo
-            </a>
+            <div className="flex flex-col gap-2.5">
+              <a href="#demo" className="btn-primary w-full">
+                Try Your Demo
+              </a>
+              <a href="#contact" className="btn-outline w-full">
+                Talk to Sales
+              </a>
+            </div>
 
             <p className="mt-6 text-xs text-text-secondary leading-relaxed">
               We guarantee Amiro will generate at least 3× in ROI within the

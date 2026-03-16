@@ -23,8 +23,13 @@ export default function Navbar() {
             </a>
           </li>
           <li>
+            <a href="#demo" className="btn-ghost">
+              Try Your Demo
+            </a>
+          </li>
+          <li>
             <a href="#contact" className="btn-primary">
-              Book a Demo
+              Talk to Sales
             </a>
           </li>
         </ul>

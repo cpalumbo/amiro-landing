@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amiro Health — AI Employee for Patient Journeys</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #7C5BBF;
+      --purple-dark: #6544A8;
+      --purple-light: #F3EEFF;
+      --purple-mid: #E8DEFF;
+      --green: #10B981;
+      --green-light: #D1FAE5;
+      --surface: #F5F6F8;
+      --white: #FFFFFF;
+      --text: #1A1A2E;
+      --text-secondary: #6B7280;
+      --border: #E5E7EB;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --max-w: 1200px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============================================
+       NAV
+       ============================================ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .logo span { color: var(--purple); font-weight: 500; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 22px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--purple);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--purple-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--purple);
+      border: 1.5px solid var(--purple);
+    }
+
+    .btn-outline:hover {
+      background: var(--purple-light);
+    }
+
+    .btn-large {
+      padding: 14px 32px;
+      font-size: 16px;
+      border-radius: 10px;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 10px 16px;
+    }
+
+    .btn-ghost:hover { color: var(--text); }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      padding: 140px 0 80px;
+      background: var(--white);
+    }
+
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero-content { max-width: 520px; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--purple-light);
+      color: var(--purple);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--purple), #A78BFA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    /* Product Carousel in Hero */
+    .hero-visual {
+      position: relative;
+    }
+
+    .carousel-wrapper {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .carousel-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .carousel-dot:first-child { background: #FF5F57; }
+    .carousel-dot:nth-child(2) { background: #FEBC2E; }
+    .carousel-dot:nth-child(3) { background: #28C840; }
+
+    .carousel-tab-bar {
+      display: flex;
+      margin-left: auto;
+      gap: 2px;
+      background: var(--surface);
+      border-radius: 6px;
+      padding: 2px;
+    }
+
+    .carousel-tab {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 4px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+    }
+
+    .carousel-tab.active {
+      background: var(--white);
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .carousel-slides {
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .carousel-slide.active { opacity: 1; }
+
+    /* Slide 1: Chat interface */
+    .chat-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .chat-msg {
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.5;
+      animation: fadeInUp 0.3s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-msg.user {
+      align-self: flex-end;
+      background: var(--purple);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-msg.ai {
+      align-self: flex-start;
+      background: var(--white);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-msg .label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      opacity: 0.7;
+    }
+
+    .chat-input-mock {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-top: auto;
+    }
+
+    .chat-input-mock span {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .chat-input-mock .send-btn {
+      margin-left: auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Slide 2: Tasks dashboard */
+    .tasks-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tasks-demo .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .tasks-demo .task-header h4 {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .task-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    .task-badge.live {
+      background: var(--green-light);
+      color: #065F46;
+    }
+
+    .task-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: box-shadow 0.2s;
+    }
+
+    .task-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .task-icon.purple { background: var(--purple-light); }
+    .task-icon.green { background: var(--green-light); }
+    .task-icon.amber { background: #FEF3C7; }
+    .task-icon.red { background: #FEE2E2; }
+
+    .task-info { flex: 1; min-width: 0; }
+
+    .task-info .task-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .task-info .task-desc {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .task-status {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .task-status.urgent { background: #FEE2E2; color: #991B1B; }
+    .task-status.pending { background: #FEF3C7; color: #92400E; }
+    .task-status.done { background: var(--green-light); color: #065F46; }
+    .task-status.sent { background: var(--purple-light); color: var(--purple); }
+
+    /* Slide 3: Revenue view */
+    .revenue-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .revenue-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .rev-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .rev-card .rev-label {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .rev-card .rev-value {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .rev-card .rev-change {
+      font-size: 11px;
+      font-weight: 600;
+      color: #059669;
+      margin-top: 4px;
+    }
+
+    .rev-chart {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rev-chart h4 {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 140px;
+      padding-top: 10px;
+    }
+
+    .chart-bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .chart-bar-pair {
+      display: flex;
+      gap: 3px;
+      align-items: flex-end;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .chart-bar {
+      width: 14px;
+      border-radius: 3px 3px 0 0;
+      transition: height 0.6s ease;
+    }
+
+    .chart-bar.before { background: var(--border); }
+    .chart-bar.after { background: var(--purple); }
+
+    .chart-bar-group .bar-label {
+      font-size: 9px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .chart-legend span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+
+    .chart-legend .leg-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+    }
+
+    /* Carousel nav dots */
+    .carousel-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px;
+    }
+
+    .carousel-nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0;
+    }
+
+    .carousel-nav-dot.active {
+      background: var(--purple);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* ============================================
+       LOGOS BAR
+       ============================================ */
+    .logos-bar {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logos-bar p {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .logos-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .logo-item {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      opacity: 0.4;
+      letter-spacing: -0.01em;
+    }
+
+    /* ============================================
+       FEATURES
+       ============================================ */
+    .features {
+      padding: 100px 0;
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    .feature-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 60px 0;
+    }
+
+    .feature-block:not(:last-child) {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feature-block.reverse .feature-text { order: 2; }
+    .feature-block.reverse .feature-visual { order: 1; }
+
+    .feature-visual {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 32px;
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-text .section-desc {
+      margin-bottom: 24px;
+    }
+
+    .feature-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .pill.green {
+      background: var(--green-light);
+      color: #065F46;
+    }
+
+    /* Feature 1 visual: tool connections */
+    .tools-visual {
+      width: 100%;
+    }
+
+    .tools-hub {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .tools-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .tool-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .tool-chip .tool-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .amiro-hub-center {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 24px;
+      background: var(--purple);
+      color: white;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 4px 20px rgba(124,91,191,0.3);
+    }
+
+    .amiro-hub-center .hub-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .connector-line {
+      width: 2px;
+      height: 20px;
+      background: linear-gradient(to bottom, var(--border), var(--purple-mid));
+    }
+
+    .connector-line.down {
+      background: linear-gradient(to bottom, var(--purple-mid), var(--border));
+    }
+
+    .mode-toggle {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mode-chip {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mode-chip.active-mode {
+      background: var(--green-light);
+      border-color: var(--green);
+      color: #065F46;
+    }
+
+    /* Feature 2 visual: patient journey */
+    .journey-visual {
+      width: 100%;
+    }
+
+    .journey-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      align-items: center;
+    }
+
+    .journey-step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .journey-step-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .journey-step-text .step-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .journey-step-text .step-desc {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .journey-arrow {
+      width: 2px;
+      height: 20px;
+      background: var(--purple-mid);
+      position: relative;
+    }
+
+    .journey-arrow::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--purple-mid);
+    }
+
+    .journey-result {
+      padding: 14px 22px;
+      background: var(--purple);
+      color: white;
+      border-radius: 12px;
+      text-align: center;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .journey-result .result-value {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .journey-result .result-label {
+      font-size: 12px;
+      opacity: 0.85;
+      font-weight: 500;
+    }
+
+    /* Feature 3 visual: revenue dashboard */
+    .revenue-visual {
+      width: 100%;
+    }
+
+    .rev-dashboard {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .rev-dash-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .rev-dash-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .rev-dash-card .rdl {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .rev-dash-card .rdv {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .rev-dash-card .rdc {
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .rev-dash-card .rdc.up { color: #059669; }
+
+    .rev-dash-card.highlight {
+      background: var(--purple);
+      color: white;
+      border-color: var(--purple);
+    }
+
+    .rev-dash-card.highlight .rdl { color: rgba(255,255,255,0.7); }
+    .rev-dash-card.highlight .rdc { color: #A7F3D0; }
+
+    .rev-payoff {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .rev-payoff .payoff-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .rev-payoff .payoff-value {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--green);
+    }
+
+    /* ============================================
+       TESTIMONIAL
+       ============================================ */
+    .testimonial-section {
+      padding: 80px 0;
+      background: var(--surface);
+    }
+
+    .testimonial-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 48px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+
+    .testimonial-quote {
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      margin-bottom: 32px;
+      color: var(--text);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .testimonial-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple-light), var(--purple-mid));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--purple);
+    }
+
+    .testimonial-info { text-align: left; }
+
+    .testimonial-name {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .testimonial-role {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       PRICING
+       ============================================ */
+    .pricing-section {
+      padding: 100px 0;
+    }
+
+    .pricing-section .section-label,
+    .pricing-section .section-title {
+      text-align: center;
+    }
+
+    .pricing-section .section-desc {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 48px;
+    }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 36px;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 1px var(--purple), var(--shadow-md);
+      position: relative;
+    }
+
+    .pricing-card.featured::before {
+      content: 'Most popular';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--purple);
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 100px;
+    }
+
+    .pricing-name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .pricing-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .pricing-price {
+      margin-bottom: 24px;
+    }
+
+    .pricing-price .price-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .pricing-features li {
+      font-size: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ============================================
+       LEAD CAPTURE / CTA
+       ============================================ */
+    .cta-section {
+      padding: 100px 0;
+      background: var(--text);
+      color: white;
+    }
+
+    .cta-section .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .cta-section .section-title {
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .cta-section .section-desc {
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .lead-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .lead-form input,
+    .lead-form textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .lead-form input::placeholder,
+    .lead-form textarea::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+
+    .lead-form input:focus,
+    .lead-form textarea:focus {
+      border-color: var(--purple);
+    }
+
+    .lead-form textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .lead-form .btn-primary {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+    }
+
+    .lead-form .form-note {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 900px) {
+      .hero .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero h1 { font-size: 34px; }
+
+      .feature-block {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .feature-block.reverse .feature-text { order: 1; }
+      .feature-block.reverse .feature-visual { order: 2; }
+
+      .pricing-cards {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+      }
+
+      .section-title { font-size: 28px; }
+
+      .nav-links { display: none; }
+
+      footer .container { flex-direction: column; gap: 12px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 110px 0 60px; }
+      .hero h1 { font-size: 28px; }
+      .hero p { font-size: 16px; }
+      .hero-ctas { flex-direction: column; }
+      .carousel-slides { height: 360px; }
+      .revenue-cards { grid-template-columns: 1fr; }
+      .testimonial-card { padding: 28px; }
+      .testimonial-quote { font-size: 17px; }
+      .rev-dash-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">Amiro <span>Health</span></a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact" class="btn btn-primary">Book a Demo</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Now onboarding clinics
+        </div>
+        <h1>Your AI employee for <span class="highlight">patient journeys</span></h1>
+        <p>Amiro plugs into your clinic's tools and runs follow-ups, rebookings, no-show recovery, and retention on autopilot. Like hiring the best ops person — without the headcount.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary btn-large">Book a Demo</a>
+          <a href="#features" class="btn btn-ghost">See how it works →</a>
+        </div>
+      </div>
+
+      <!-- Product carousel -->
+      <div class="hero-visual">
+        <div class="carousel-wrapper">
+          <div class="carousel-header">
+            <span class="carousel-dot"></span>
+            <span class="carousel-dot"></span>
+            <span class="carousel-dot"></span>
+            <div class="carousel-tab-bar">
+              <button class="carousel-tab active" data-slide="0">Chat</button>
+              <button class="carousel-tab" data-slide="1">Tasks</button>
+              <button class="carousel-tab" data-slide="2">Revenue</button>
+            </div>
+          </div>
+
+          <div class="carousel-slides">
+            <!-- Slide 1: Chat -->
+            <div class="carousel-slide active" data-index="0">
+              <div class="chat-demo">
+                <div class="chat-msg user">
+                  What needs my attention today?
+                </div>
+                <div class="chat-msg ai">
+                  <div class="label">Amiro</div>
+                  You have <strong>3 no-shows</strong> from yesterday, <strong>8 results</strong> ready to send, and <strong>2 follow-ups</strong> overdue. I've drafted a recovery campaign for the no-shows — want me to send it or would you like to review first?
+                </div>
+                <div class="chat-msg user">
+                  Send the no-show campaign. I'll review the follow-ups.
+                </div>
+                <div class="chat-msg ai">
+                  <div class="label">Amiro</div>
+                  Done — 3 patients contacted via WhatsApp with rebooking links. I'll flag the follow-ups for your review. ✓
+                </div>
+                <div class="chat-input-mock">
+                  <span>Ask Amiro anything...</span>
+                  <div class="send-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2: Tasks -->
+            <div class="carousel-slide" data-index="1">
+              <div class="tasks-demo">
+                <div class="task-header">
+                  <h4>Today's Operations</h4>
+                  <span class="task-badge live">● Live</span>
+                </div>
+                <div class="task-card">
+                  <div class="task-icon red">📞</div>
+                  <div class="task-info">
+                    <div class="task-title">No-show: Anna de Vries</div>
+                    <div class="task-desc">Missed yesterday · 3rd occurrence</div>
+                  </div>
+                  <span class="task-status urgent">Urgent</span>
+                </div>
+                <div class="task-card">
+                  <div class="task-icon purple">📄</div>
+                  <div class="task-info">
+                    <div class="task-title">Send results: Mark Jansen</div>
+                    <div class="task-desc">Lab results ready since Mar 4</div>
+                  </div>
+                  <span class="task-status pending">Pending</span>
+                </div>
+                <div class="task-card">
+                  <div class="task-icon green">✓</div>
+                  <div class="task-info">
+                    <div class="task-title">Follow-up call: Lisa Bakker</div>
+                    <div class="task-desc">Post-treatment check · Day 7</div>
+                  </div>
+                  <span class="task-status done">Done</span>
+                </div>
+                <div class="task-card">
+                  <div class="task-icon amber">💶</div>
+                  <div class="task-info">
+                    <div class="task-title">Invoice overdue: Peter Smit</div>
+                    <div class="task-desc">€120 · 14 days past due</div>
+                  </div>
+                  <span class="task-status pending">Pending</span>
+                </div>
+                <div class="task-card">
+                  <div class="task-icon purple">📩</div>
+                  <div class="task-info">
+                    <div class="task-title">Campaign: Q1 check-up reminder</div>
+                    <div class="task-desc">142 patients · Sent this morning</div>
+                  </div>
+                  <span class="task-status sent">Sent</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: Revenue -->
+            <div class="carousel-slide" data-index="2">
+              <div class="revenue-demo">
+                <div class="revenue-cards">
+                  <div class="rev-card">
+                    <div class="rev-label">Recovered this month</div>
+                    <div class="rev-value">€4,820</div>
+                    <div class="rev-change">↑ 32% vs last month</div>
+                  </div>
+                  <div class="rev-card">
+                    <div class="rev-label">Patients rebooked</div>
+                    <div class="rev-value">47</div>
+                    <div class="rev-change">↑ 18 more than usual</div>
+                  </div>
+                  <div class="rev-card">
+                    <div class="rev-label">No-show rate</div>
+                    <div class="rev-value">8%</div>
+                    <div class="rev-change">↓ from 23%</div>
+                  </div>
+                </div>
+                <div class="rev-chart">
+                  <h4>Monthly Revenue Recovery</h4>
+                  <div class="chart-bars">
+                    <div class="chart-bar-group"><div class="chart-bar-pair"><div class="chart-bar before" style="height:40px"></div><div class="chart-bar after" style="height:55px"></div></div><span class="bar-label">Oct</span></div>
+                    <div class="chart-bar-group"><div class="chart-bar-pair"><div class="chart-bar before" style="height:45px"></div><div class="chart-bar after" style="height:68px"></div></div><span class="bar-label">Nov</span></div>
+                    <div class="chart-bar-group"><div class="chart-bar-pair"><div class="chart-bar before" style="height:38px"></div><div class="chart-bar after" style="height:72px"></div></div><span class="bar-label">Dec</span></div>
+                    <div class="chart-bar-group"><div class="chart-bar-pair"><div class="chart-bar before" style="height:50px"></div><div class="chart-bar after" style="height:80px"></div></div><span class="bar-label">Jan</span></div>
+                    <div class="chart-bar-group"><div class="chart-bar-pair"><div class="chart-bar before" style="height:42px"></div><div class="chart-bar after" style="height:90px"></div></div><span class="bar-label">Feb</span></div>
+                    <div class="chart-bar-group"><div class="chart-bar-pair"><div class="chart-bar before" style="height:48px"></div><div class="chart-bar after" style="height:105px"></div></div><span class="bar-label">Mar</span></div>
+                  </div>
+                  <div class="chart-legend">
+                    <span><span class="leg-dot" style="background:var(--border)"></span> Before Amiro</span>
+                    <span><span class="leg-dot" style="background:var(--purple)"></span> With Amiro</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-nav">
+            <button class="carousel-nav-dot active" data-slide="0"></button>
+            <button class="carousel-nav-dot" data-slide="1"></button>
+            <button class="carousel-nav-dot" data-slide="2"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS -->
+  <section class="logos-bar">
+    <div class="container">
+      <p>Trusted by forward-thinking clinics</p>
+      <div class="logos-grid">
+        <span class="logo-item">Curitt.Health</span>
+        <span class="logo-item">Your Clinic</span>
+        <span class="logo-item">Your Clinic</span>
+        <span class="logo-item">Your Clinic</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="container">
+
+      <!-- Feature 1: AI Employee + Tools -->
+      <div class="feature-block">
+        <div class="feature-text">
+          <div class="section-label">Your tools, on autopilot</div>
+          <h2 class="section-title">Amiro plugs into your EMR and works for you</h2>
+          <p class="section-desc">Connect your existing tools — EMR, messaging, email, calendar — and Amiro uses them on your behalf. Choose full autopilot or stay in the loop and approve every action before it happens.</p>
+          <div class="feature-pills">
+            <span class="pill">🔄 EMR integration</span>
+            <span class="pill">💬 WhatsApp</span>
+            <span class="pill">📧 Email</span>
+            <span class="pill">📅 Calendar</span>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <div class="tools-visual">
+            <div class="tools-hub">
+              <div class="tools-row">
+                <div class="tool-chip"><span class="tool-icon" style="background:#E0F2FE">🏥</span> EMR</div>
+                <div class="tool-chip"><span class="tool-icon" style="background:#D1FAE5">💬</span> WhatsApp</div>
+                <div class="tool-chip"><span class="tool-icon" style="background:#FEF3C7">📧</span> Email</div>
+                <div class="tool-chip"><span class="tool-icon" style="background:#F3EEFF">📅</span> Calendar</div>
+              </div>
+              <div class="connector-line"></div>
+              <div class="amiro-hub-center">
+                <span class="hub-icon">✦</span>
+                Amiro
+              </div>
+              <div class="connector-line down"></div>
+              <div class="mode-toggle">
+                <div class="mode-chip active-mode">
+                  <span>⚡</span> Autopilot
+                </div>
+                <div class="mode-chip">
+                  <span>👤</span> Human-in-the-loop
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 2: Patient Journeys -->
+      <div class="feature-block reverse">
+        <div class="feature-text">
+          <div class="section-label">Designed by experts</div>
+          <h2 class="section-title">Patient journeys that drive 30% more revenue</h2>
+          <p class="section-desc">Every workflow in Amiro is built on best practices from top-performing clinics — designed by operators with 10+ years scaling healthcare businesses across hundreds of locations.</p>
+          <div class="feature-pills">
+            <span class="pill green">↑ 30% revenue uplift</span>
+            <span class="pill">🔁 No-show recovery</span>
+            <span class="pill">📋 Follow-up flows</span>
+            <span class="pill">📈 Retention campaigns</span>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <div class="journey-visual">
+            <div class="journey-flow">
+              <div class="journey-step">
+                <div class="journey-step-icon" style="background:#F3EEFF">📄</div>
+                <div class="journey-step-text">
+                  <div class="step-title">Results delivered</div>
+                  <div class="step-desc">Patient receives lab results via secure link</div>
+                </div>
+              </div>
+              <div class="journey-arrow"></div>
+              <div class="journey-step">
+                <div class="journey-step-icon" style="background:#E0F2FE">📅</div>
+                <div class="journey-step-text">
+                  <div class="step-title">Follow-up prompted</div>
+                  <div class="step-desc">Amiro suggests next visit at the right time</div>
+                </div>
+              </div>
+              <div class="journey-arrow"></div>
+              <div class="journey-step">
+                <div class="journey-step-icon" style="background:#FEF3C7">💬</div>
+                <div class="journey-step-text">
+                  <div class="step-title">Reminder sent</div>
+                  <div class="step-desc">WhatsApp + email nudge with booking link</div>
+                </div>
+              </div>
+              <div class="journey-arrow"></div>
+              <div class="journey-step">
+                <div class="journey-step-icon" style="background:#D1FAE5">✓</div>
+                <div class="journey-step-text">
+                  <div class="step-title">Patient rebooked</div>
+                  <div class="step-desc">Confirmed and added to calendar</div>
+                </div>
+              </div>
+              <div class="journey-arrow"></div>
+              <div class="journey-result">
+                <div class="result-value">+30%</div>
+                <div class="result-label">average revenue uplift</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 3: Revenue Visibility -->
+      <div class="feature-block">
+        <div class="feature-text">
+          <div class="section-label">Revenue you can see</div>
+          <h2 class="section-title">Know exactly how Amiro pays for itself</h2>
+          <p class="section-desc">Track every recovered appointment, every rebooked patient, every euro of revenue uplift. Amiro doesn't just work — it shows you the results, so you always know the ROI.</p>
+          <div class="feature-pills">
+            <span class="pill green">💰 Revenue tracking</span>
+            <span class="pill">📊 Campaign performance</span>
+            <span class="pill">📉 No-show trends</span>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <div class="revenue-visual">
+            <div class="rev-dashboard">
+              <div class="rev-dash-row">
+                <div class="rev-dash-card highlight">
+                  <div class="rdl">Revenue recovered (MTD)</div>
+                  <div class="rdv">€4,820</div>
+                  <div class="rdc up">↑ 32% vs last month</div>
+                </div>
+                <div class="rev-dash-card">
+                  <div class="rdl">Patients rebooked</div>
+                  <div class="rdv">47</div>
+                  <div class="rdc up">↑ 62% conversion</div>
+                </div>
+              </div>
+              <div class="rev-dash-row">
+                <div class="rev-dash-card">
+                  <div class="rdl">No-show rate</div>
+                  <div class="rdv">8%</div>
+                  <div class="rdc up">↓ from 23%</div>
+                </div>
+                <div class="rev-dash-card">
+                  <div class="rdl">Active campaigns</div>
+                  <div class="rdv">5</div>
+                  <div class="rdc up">All performing above target</div>
+                </div>
+              </div>
+              <div class="rev-payoff">
+                <div class="payoff-text">Amiro cost this month: €299 → Revenue recovered: <span class="payoff-value">€4,820</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="testimonial-section">
+    <div class="container">
+      <div class="testimonial-card">
+        <div class="testimonial-quote">
+          "We saw the demo and signed the same day. Amiro understood our problems instantly — follow-ups falling through the cracks, patients not rebooking, revenue leaking silently. It felt like they'd worked at our clinic."
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">C</div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Curitt.Health</div>
+            <div class="testimonial-role">First Amiro customer — Amsterdam, NL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <div class="section-label">Pricing</div>
+      <h2 class="section-title">Simple, transparent pricing</h2>
+      <p class="section-desc">Amiro pays for itself within the first month. Choose the plan that fits how you want to work.</p>
+
+      <div class="pricing-cards">
+        <div class="pricing-card">
+          <div class="pricing-name">Human-in-the-Loop</div>
+          <div class="pricing-desc">Amiro drafts everything. You review and approve before anything goes out.</div>
+          <div class="pricing-price">
+            <span class="price-label">Custom pricing based on clinic size</span>
+          </div>
+          <ul class="pricing-features">
+            <li>AI-drafted campaigns and workflows</li>
+            <li>Staff approval before every action</li>
+            <li>EMR + messaging integration</li>
+            <li>Revenue recovery dashboard</li>
+            <li>White-label patient portal</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline" style="width:100%">Contact Us</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pricing-name">Full Autopilot</div>
+          <div class="pricing-desc">Amiro runs patient journeys fully autonomously. You see the results.</div>
+          <div class="pricing-price">
+            <span class="price-label">Custom pricing based on clinic size</span>
+          </div>
+          <ul class="pricing-features">
+            <li>Everything in Human-in-the-Loop</li>
+            <li>Fully autonomous campaigns</li>
+            <li>Proactive workflow suggestions</li>
+            <li>Best-practice playbooks built in</li>
+            <li>White-glove onboarding included</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" style="width:100%">Book a Demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / LEAD CAPTURE -->
+  <section class="cta-section" id="contact">
+    <div class="container">
+      <h2 class="section-title">Ready to stop losing patients?</h2>
+      <p class="section-desc">Book a demo and see what Amiro looks like for your clinic. We'll show you real workflows running on real data — in under 20 minutes.</p>
+      <form class="lead-form" onsubmit="handleSubmit(event)">
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Work email" required>
+        <input type="text" name="clinic" placeholder="Clinic name">
+        <textarea name="message" placeholder="Tell us about your clinic (optional)"></textarea>
+        <button type="submit" class="btn btn-primary">Book a Demo</button>
+        <span class="form-note">We'll respond within 24 hours. No spam, ever.</span>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Amiro Health. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="mailto:hello@amiro.health">hello@amiro.health</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // Carousel logic
+    const tabs = document.querySelectorAll('.carousel-tab');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const navDots = document.querySelectorAll('.carousel-nav-dot');
+    let currentSlide = 0;
+    let autoplayTimer;
+
+    function goToSlide(index) {
+      currentSlide = index;
+      slides.forEach(s => s.classList.remove('active'));
+      tabs.forEach(t => t.classList.remove('active'));
+      navDots.forEach(d => d.classList.remove('active'));
+
+      slides[index].classList.add('active');
+      tabs[index].classList.add('active');
+      navDots[index].classList.add('active');
+    }
+
+    function nextSlide() {
+      goToSlide((currentSlide + 1) % slides.length);
+    }
+
+    function startAutoplay() {
+      autoplayTimer = setInterval(nextSlide, 4000);
+    }
+
+    function resetAutoplay() {
+      clearInterval(autoplayTimer);
+      startAutoplay();
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        goToSlide(parseInt(tab.dataset.slide));
+        resetAutoplay();
+      });
+    });
+
+    navDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        goToSlide(parseInt(dot.dataset.slide));
+        resetAutoplay();
+      });
+    });
+
+    startAutoplay();
+
+    // Form handling
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = 'Thank you! We\'ll be in touch.';
+      btn.style.background = '#10B981';
+      btn.disabled = true;
+    }
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

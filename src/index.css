@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-purple text-white font-semibold text-sm px-6 py-2.5 rounded-lg transition-all duration-200 hover:bg-purple-dark hover:-translate-y-px hover:shadow-md;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 bg-transparent text-purple font-semibold text-sm px-6 py-2.5 rounded-lg border-[1.5px] border-purple transition-all duration-200 hover:bg-purple-light;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 bg-transparent text-text-secondary font-semibold text-sm px-4 py-2.5 transition-colors duration-200 hover:text-text;
+  }
+
+  .btn-large {
+    @apply px-8 py-3.5 text-base rounded-[10px];
+  }
+
+  .section-label {
+    @apply text-[13px] font-semibold text-purple uppercase tracking-[0.06em] mb-3;
+  }
+
+  .section-title {
+    @apply text-4xl font-extrabold tracking-tight leading-[1.15] mb-4;
+  }
+
+  .section-desc {
+    @apply text-[17px] text-text-secondary leading-relaxed max-w-[520px];
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s infinite;
+}

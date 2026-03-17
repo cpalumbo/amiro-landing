@@ -118,7 +118,7 @@ function RevenueVisual() {
 
       <div className="bg-white border border-gray-200 rounded-[10px] p-4 text-center">
         <span className="text-[13px] text-text-secondary">
-          Amiro cost this month: €350 → Revenue recovered:{' '}
+          Amiro cost this month: €299 → Revenue recovered:{' '}
           <span className="text-lg font-extrabold text-green">€4,820</span>
         </span>
       </div>
@@ -176,7 +176,7 @@ export default function Features() {
           reverse
           label="Designed by experts"
           title="Patient journeys that drive 30% more revenue"
-          desc="Every workflow in Amiro is built on best practices from top-performing clinics — designed by operators with experience scaling healthcare businesses across hundreds of locations."
+          desc="Every workflow in Amiro is built on best practices from top-performing clinics — designed by operators with 10+ years scaling healthcare businesses across hundreds of locations."
           pills={<>
             <Pill green>↑ 30% revenue uplift</Pill>
             <Pill>🔁 No-show recovery</Pill>

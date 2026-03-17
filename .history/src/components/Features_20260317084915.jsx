@@ -118,7 +118,7 @@ function RevenueVisual() {
 
       <div className="bg-white border border-gray-200 rounded-[10px] p-4 text-center">
         <span className="text-[13px] text-text-secondary">
-          Amiro cost this month: €350 → Revenue recovered:{' '}
+          Amiro cost this month: €299 → Revenue recovered:{' '}
           <span className="text-lg font-extrabold text-green">€4,820</span>
         </span>
       </div>

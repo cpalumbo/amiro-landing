@@ -12,7 +12,7 @@ export default function Hero() {
           </div>
 
           <h1 className="text-[46px] font-extrabold leading-[1.1] tracking-tight mb-5">
-            Grow your clinic revenue by running{' '}
+            Scale your clinic revenue by running{' '}
             <span className="bg-gradient-to-br from-purple to-[#A78BFA] bg-clip-text text-transparent">
               patient journeys on autopilot
             </span>
